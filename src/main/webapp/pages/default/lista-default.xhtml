@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:adm="http://github.com/adminfaces"
+                template="/WEB-INF/templates/template.xhtml">
+
+    <ui:define name="head-end">
+        <style type="text/css">
+            .ui-grid-row .ui-grid-col-2,
+            .ui-grid-row .ui-grid-col-10 {
+                padding: 0.5em 0;
+                margin-left: 10px;
+            }
+
+            .ui-orderlist .ui-orderlist-list {
+                height: auto;
+            }
+
+            .ui-orderlist .ui-grid-row .ui-grid-col-2,
+            .ui-orderlist .ui-grid-row .ui-grid-col-10 {
+                padding: 0;
+            }
+        </style>
+    </ui:define>
+
+    <ui:define name="title">
+        Pesquisa Default
+    </ui:define>
+
+    <ui:define name="description">
+        Pesquise ... 
+    </ui:define>
+
+    <ui:define name="body">
+        <adm:breadcrumb title="Pesquisa Default"/>
+
+			<h:form>
+            	<div class="box box-primary">
+                	<div class="box-header with-border">
+                    	<p:commandButton action="cadastro-default?faces-redirect=true" ajax="false" icon="fa fa-plus"
+                         	            value="Novo" styleClass="btn-primary"/>
+                    	<p:spacer width="5"/>
+	                    <p:commandButton value="Excluir Selecionado(s)" icon="fa fa-trash" styleClass="btn-danger"
+	                                     process="@form" update="@form"/>
+	                    <p:spacer width="5"/>
+	                    <p:commandButton value="Olhar Selecionado(s)" 
+	                    				 oncomplete="PF('defaultSelecionadas').show()"
+	                    				 update="@(.ui-dialog)" 
+	                    				 styleClass="btn-info"
+	                                     icon="fa fa-search"/>
+	                    <p:separator/>
+	                    
+	                    
+	                    <p:dataTable id="defaultTable" widgetVar="defaultTable" rows="10"	                    			 
+	                                 paginator="true" 	                                 
+	                                 paginatorPosition="bottom"	                                 
+	                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} "
+	                                 currentPageReportTemplate=""
+	                                 rowsPerPageTemplate="5,10,15,20,30">
+	
+	                        <p:ajax event="rowSelectCheckbox" update="@(.ui-button)"/>
+	                        <p:ajax event="rowUnselectCheckbox" update="@(.ui-button)"/>
+	                        <p:ajax event="rowSelect" update="@(.ui-button)"/>
+	                        <p:ajax event="rowUnselect" update="@(.ui-button)"/>
+	
+	
+	                        <p:column selectionMode="multiple" width="5%" styleClass="align-center"/>	                        
+	                        
+	                        	
+	                    </p:dataTable>
+					</div>
+	            </div>
+        	</h:form>
+        	
+        	<p:dialog header="Default Selecionadas" widgetVar="defaultSelecionadas" height="250"
+                  	  width="400" responsive="true" styleClass="box-success">
+	            <p:dataList id="listaDefaultSelecionadas" value="" var="default"
+	                        type="definition">
+
+	            </p:dataList>
+			</p:dialog>
+
+        
+    </ui:define>
+
+</ui:composition>
